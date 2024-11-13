@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TextAI</title>
-  <link rel="stylesheet" href="/src/styles.css">
+  <title>Przetwarzanie artykułu</title>
 </head>
 <body>
-  <div id="app">
-    <h1>Dodaj plik tekstowy</h1>
-    <input type="file" id="fileInput" accept=".txt" />
-    <textarea id="textContent" rows="10" cols="50" placeholder="Tekst z pliku pojawi się tutaj..."></textarea>
-    <button id="sendToOpenAI">Wyślij</button>
-    <pre id="response"></pre>
-  </div>
-  <script type="module" src="/src/main.js"></script>
+  <h1>Przetwarzanie artykułu z OpenAI</h1>
+  <p>1. Wybierz plik tekstowy (.txt).</p>
+  <p>2. Kliknij "Przetwórz artykuł", aby wysłać jego treść do OpenAI.</p>
+  <p>3. Zapisz wygenerowany plik HTML.</p>
+  <input type="file" id="fileInput" accept=".txt">
+  <button id="sendToOpenAI">Przetwórz artykuł</button>
+  <p id="response"></p>
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>

@@ -9,10 +9,10 @@ export async function callOpenAIAPI(prompt) {
     const payload = {
       model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'system', content: 'You are an AI that generates structured, well-formatted HTML articles based on user prompts.' },
         { role: 'user', content: prompt },
       ],
-      max_tokens: 150,
+      max_tokens: 3000,
     };
 
     const response = await fetch(url, {
