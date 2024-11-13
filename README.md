@@ -1,4 +1,5 @@
 Aplikacja do Przetwarzania Artykułów z OpenAI
+
 Opis działania aplikacji
 Aplikacja umożliwia przetwarzanie plików tekstowych (.txt) z artykułami przy pomocy API OpenAI. Wczytany artykuł jest przesyłany do modelu językowego, który generuje na jego podstawie ustrukturyzowany kod HTML, spełniający konkretne wymagania, w tym:
 - Semantyczna struktura z odpowiednimi tagami HTML.
