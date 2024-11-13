@@ -1,0 +1,44 @@
+body {
+    font-family: "Inter", sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+}
+
+.article-header h1 {
+    font-size: 2em;
+    font-weight: 900;
+    color: #000;
+}
+
+h2 {
+    font-size: 1.6em;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+.article-section {
+    margin-bottom: 20px;
+}
+
+figure {
+    text-align: center;
+    margin: 20px 0;
+}
+
+figcaption {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.article-footer {
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+    padding-top: 10px;
+    font-size: 0.9em;
+    color: #888;
+}
