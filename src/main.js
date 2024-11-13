@@ -9,12 +9,21 @@ let fileContent = '';
 fileInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
   if (file && file.type === 'text/plain') {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      fileContent = e.target.result;
-      responseElement.textContent = 'Plik wczytany pomyślnie. Kliknij "Przetwórz artykuł".';
-    };
-    reader.readAsText(file);
+    if (file.size > 0) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        fileContent = e.target.result.trim();
+        if (fileContent.length === 0) {
+          alert('Plik jest pusty. Proszę wczytać plik z treścią.');
+          fileContent = '';
+          return;
+        }
+        responseElement.textContent = 'Plik wczytany pomyślnie. Kliknij "Przetwórz artykuł".';
+      };
+      reader.readAsText(file);
+    } else {
+      alert('Plik jest pusty. Proszę wczytać plik z treścią.');
+    }
   } else {
     alert('Proszę wczytać plik tekstowy (.txt).');
   }
@@ -58,11 +67,15 @@ const prompt = `
   try {
     responseElement.textContent = 'Ładowanie...';
     const rawResponse = await callOpenAIAPI(prompt);
-    const cleanedHTML = extractBodyContent(rawResponse); 
+    const cleanedHTML = extractBodyContent(rawResponse);
+    if (!cleanedHTML) {
+      throw new Error('Otrzymano pustą odpowiedź. Spróbuj ponownie.');
+    }
     responseElement.textContent = 'Artykuł przetworzony pomyślnie. Możesz go zapisać jako HTML.';
     saveGeneratedHTML(cleanedHTML);
   } catch (error) {
     responseElement.textContent = `Błąd: ${error.message}`;
+    console.error('Szczegóły błędu:', error);
   }
 });
 
@@ -79,9 +92,13 @@ function saveGeneratedHTML(htmlContent) {
 }
 
 function extractBodyContent(html) {
-  const bodyStart = html.indexOf('<body>');
-  const bodyEnd = html.indexOf('</body>');
-  return bodyStart !== -1 && bodyEnd !== -1
-    ? html.slice(bodyStart + 6, bodyEnd).trim()
-    : html.replace(/<\/?(html|head|body)[^>]*>/gi, '').trim();
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const bodyContent = doc.body ? doc.body.innerHTML.trim() : html.trim();
+    return bodyContent;
+  } catch (error) {
+    console.error('Błąd podczas przetwarzania HTML:', error);
+    return html.replace(/<\/?(html|head|body)[^>]*>/gi, '').trim();
+  }
 }
